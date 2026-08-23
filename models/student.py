@@ -1,8 +1,12 @@
 from __future__ import annotations
 from sqlalchemy import column,Integer,ForeignKey,String,Boolean
-from sqlalchemy.orm import mapped_column,Mapped,DeclarativeBase
+from sqlalchemy.orm import mapped_column,Mapped,DeclarativeBase,relationship
 from database import Base
 import uuid
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .department import Department
 
 class Student(Base):
     userID:Mapped[str] = mapped_column(
@@ -30,3 +34,8 @@ class Student(Base):
         nullable=False,
         unique=False
     )
+    deptID:Mapped[str] = mapped_column(
+        ForeignKey("departments.deptID"),
+        nullable=False
+    )
+    department: Mapped["Department"] = relationship("Department", back_populates="students")
