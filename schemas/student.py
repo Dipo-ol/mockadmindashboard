@@ -5,6 +5,7 @@ class StudentCreate(BaseModel):
     lastname:str
     matNo:str
     level:str
+    department:str
 
 class StudentRead(BaseModel):
     userID:str
@@ -12,9 +13,14 @@ class StudentRead(BaseModel):
     lastname:str
     matNo:str
     level:str
+    department:str
+    model_config = {
+        "from_attributes" : True
+    }
 
 class StudentUpdate(BaseModel):
     firstname:str
     lastname:str
     matNo:str
     level:str
+    department:str

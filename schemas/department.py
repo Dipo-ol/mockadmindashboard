@@ -1,10 +1,14 @@
 from pydantic import BaseModel
 
 class DeptCreate(BaseModel):
-    pass
+    deptName:str
 
 class DeptRead(BaseModel):
-    pass
+    deptID:str
+    deptName:str
+    model_config = {
+        "from_attributes":True
+    }
 
 class DeptUpdate(BaseModel):
-    pass
+    deptName:str

@@ -1,10 +1,25 @@
 from pydantic import BaseModel
 
 class StaffCreate(BaseModel):
-    pass
+    firstname:str
+    lastname:str
+    staffID:str
+    position:str
+    department:str
 
 class StaffRead(BaseModel):
-    pass
+    firstname:str
+    lastname:str
+    staffID:str
+    position:str
+    department:str
+    model_config = {
+        "from_attributes" : True
+    }
 
 class StaffUpdate(BaseModel):
-    pass
+    firstname:str
+    lastname:str
+    staffID:str
+    position:str
+    department:str

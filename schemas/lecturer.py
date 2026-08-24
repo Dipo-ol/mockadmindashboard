@@ -1,10 +1,26 @@
 from pydantic import BaseModel
 
 class LecturerCreate(BaseModel):
-    pass
+    firstname:str
+    lastname:str
+    staffID:str
+    rank:str
+    department:str
 
 class LecturerRead(BaseModel):
-    pass
+    userID:str
+    firstname:str
+    lastname:str
+    staffID:str
+    rank:str
+    department:str
+    model_config = {
+        "from_attributes" : True
+    }
 
 class LecturerUpdate(BaseModel):
-    pass
+    firstname:str
+    lastname:str
+    staffID:str
+    rank:str
+    department:str
