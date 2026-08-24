@@ -26,6 +26,11 @@ class Lecturer(Base):
         unique=False,
         nullable=False
     )
+    staffID:Mapped[str] = mapped_column(
+        String(20),
+        unique=True,
+        nullable=False
+    )
     rank:Mapped[str] = mapped_column(
         String(30),
         unique=False,

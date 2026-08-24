@@ -16,12 +16,12 @@ class Staff(Base):
             String(40),
             ForeignKey("users.userID"),
             primary_key=True
-        )
+    )
     firstName:Mapped[str] = mapped_column(
             String(25),
             unique=False,
             nullable=False
-        )
+    )
     lastName:Mapped[str] = mapped_column(
         String(30),
         unique=False,
@@ -32,8 +32,13 @@ class Staff(Base):
         unique=False,
         nullable=False
     )
+    staffID:Mapped[str] = mapped_column(
+    String(20),
+    unique=True,
+    nullable=False
+    )
     deptID:Mapped[str] = mapped_column(
             ForeignKey("departments.deptID"),
             nullable=False
-        )
+    )
     department: Mapped["Department"] = relationship("Department", back_populates="staff")
