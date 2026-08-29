@@ -3,7 +3,7 @@ from sqlalchemy import String,select
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound,SQLAlchemyError 
 from database import get_db
-from schemas.user import UserCreate,UserRead,UserUpdate
+from schemas.user import UserCreate,UserRead,UserUpdate,roleUpdate,passwordUpdate
 from models.user import User
 from pydantic import EmailStr
 from security.password import hash_password
@@ -52,8 +52,31 @@ def create_user(db:Session,user_data:UserCreate):
     else:
         raise HTTPException(status_code=409,detail="user already exists")
     
-    pass
-def update_user(db,userID,user_data):
-    pass
-def delete_user(db,userID):
-    pass
+    
+def update_user(db:Session,userID:str,user_data:UserUpdate):
+    user = db.get(User,userID)
+    if user is None:
+        raise HTTPException(status_code=404,detail="user not found")
+    update_data = user_data.model_dump()
+    for field,data in update_data.items():
+        setattr(user,field,data)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def delete_user(db:Session,userID:str):
+    user = db.get(User,userID)
+    if user is None:
+        raise HTTPException(status_code=404,detail="user not found")
+    db.delete(user)
+    db.commit()
+
+
+def deactivate_user(db,userID):
+    user = db.get(User,userID)
+    if user is None:
+        raise HTTPException(status_code=404,detail="user not found")
+    user.is_active = False
+    db.commit()
+    db.refresh(user)

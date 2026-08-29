@@ -16,6 +16,9 @@ class UserRead(BaseModel):
 
 class UserUpdate(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=8)
-    role: str
-    is_active:str
+
+class passwordUpdate(BaseModel):
+    password: str =Field(min_length=8)
+
+class roleUpdate(BaseModel):
+    role:str
